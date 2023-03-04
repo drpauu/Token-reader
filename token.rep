@@ -1,0 +1,25 @@
+token::codi _id;
+
+bool checkvariables(const string var);
+
+union valors
+{
+    int _enter;
+    double _real;
+    racional _racional;
+    valors();
+    valors(const valors &c) throw();
+    valors &operator=(const valors &c) throw();
+    ~valors() throw();
+};
+
+valors _valor;
+
+//void* _valor;
+
+static bool isRacional(racional r)
+{
+    return typeid(r).name() != typeid(racional).name();
+}
+
+string _var;

@@ -1,0 +1,5 @@
+#include "math_sessio.hpp"
+
+variables _sessio;
+
+bool final; // ha finalitzat la sessio o no

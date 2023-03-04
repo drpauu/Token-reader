@@ -1,0 +1,9 @@
+#include "variables.hpp"
+#include <map>
+
+struct node{
+    expressio _e;
+    string _v;
+    node *_seg;
+};
+node* head; // first element;

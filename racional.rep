@@ -1,0 +1,20 @@
+
+static int mcd(int a, int b);
+static int mcm(int a, int b);
+
+racional simplify();
+
+int _n;
+int _d;
+// int _part_entera;
+// std::pair<int, int> _residu;
+
+// std::pair<int, int> simplificar(int n, int d) throw(error);
+
+// int mcd(int a, int b) throw();
+
+// int mcm(int a, int b) throw();
+
+// int calcula_part_entera() throw();
+
+// std::pair<int, int> calcula_residu() throw(error);

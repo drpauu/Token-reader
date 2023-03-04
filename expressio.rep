@@ -1,0 +1,116 @@
+#include "expressio.hpp"
+#include <iostream>
+// #include "math_io.hpp"
+
+list<token> _lt;
+
+struct node
+{
+  node *f_esq;
+  node *f_dret;
+  token _info;
+};
+node *_arrel;
+
+bool es_operador(token op)
+{
+  return op.tipus() == token::MULTIPLICACIO or op.tipus() == token::DIVISIO or
+         op.tipus() == token::SUMA or op.tipus() == token::RESTA;
+}
+
+expressio constructora_op(token t, expressio a, expressio b)
+{
+  if (!es_operador(t)) {
+    return expressio();
+  }
+
+  expressio ret(t);
+  ret._arrel->f_dret = a._arrel;
+  ret._arrel->f_esq = b._arrel;
+  return ret;
+}
+bool is_open_parenthesis(token t)
+{
+  return t.tipus() == token::OBRIR_PAR;
+}
+
+bool is_close_parenthesis(token t)
+{
+  return t.tipus() == token::TANCAR_PAR;
+}
+
+bool funcio(token t)
+{
+  return t.tipus() == token::SQRT or t.tipus() == token::LOG or t.tipus() == token::EXP;
+}
+bool es_operand(token t)
+{
+  if (t.tipus() == token::CT_ENTERA or t.tipus() == token::CT_RACIONAL or
+      t.tipus() == token::CT_REAL or t.tipus() == token::VARIABLE or
+      t.tipus() == token::VAR_PERCENTATGE)
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+
+bool parenter(token token)
+{
+  return token.tipus() == token::OBRIR_PAR and
+         token.tipus() == token::TANCAR_PAR;
+}
+int operators(token op)
+{
+  if (op.tipus() == token::SUMA or op.tipus() == token::RESTA)
+    return 1;
+  if (op.tipus() == token::MULTIPLICACIO or op.tipus() == token::DIVISIO)
+    return 2;
+  else if (op.tipus() == token::EXPONENCIACIO)
+  {
+    return 3;
+  }
+  else if (op.tipus() == token::EVALF)
+  {
+    return -1;
+  }
+  return 0;
+}
+
+bool es_variable(token t)
+{
+  if (!es_operador(t) and !parenter(t) and !funcio(t))
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+node *copia_nodes(node *m)
+{
+  node *n = NULL;
+  if (m == NULL)
+    n = NULL;
+  else
+  {
+    n = new node;
+    n->_info = m->_info;
+    n->f_esq = copia_nodes(m->f_esq);
+    n->f_dret = copia_nodes(m->f_dret);
+  }
+  return n;
+}
+
+void esborra_nodes(node *m)
+{
+  if (m != NULL)
+  {
+    esborra_nodes(m->f_esq);
+    esborra_nodes(m->f_dret);
+    delete m;
+  }
+}
